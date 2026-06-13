@@ -1,10 +1,16 @@
 package com.tecsup.minishop.service;
+
 import com.tecsup.minishop.model.Product;
 import com.tecsup.minishop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
 @Service
 public class ProductService {
+
+    // PASO 5.2 — Definición de constantes nombradas para eliminar números mágicos
+    private static final double MIN_PRICE_THRESHOLD = 0.0;
+    private static final int MIN_STOCK_THRESHOLD = 0;
 
     private final ProductRepository productRepository;
 
@@ -13,10 +19,11 @@ public class ProductService {
     }
 
     public Product save(Product product) {
-        if (product.getPrice() <= 0) {
+        // Uso de las constantes refactorizadas para mejorar la legibilidad
+        if (product.getPrice() <= MIN_PRICE_THRESHOLD) {
             throw new IllegalArgumentException("El precio debe ser mayor a cero");
         }
-        if (product.getStock() < 0) {
+        if (product.getStock() < MIN_STOCK_THRESHOLD) {
             throw new IllegalArgumentException("El stock no puede ser negativo");
         }
         return productRepository.save(product);
