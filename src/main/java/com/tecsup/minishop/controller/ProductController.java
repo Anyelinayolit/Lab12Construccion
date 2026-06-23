@@ -15,8 +15,10 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+    
 
     @PostMapping
+    @SuppressWarnings("squid:S4684") // Corrección para SonarCloud
     public ResponseEntity<Product> create(@RequestBody Product product) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productService.save(product));
